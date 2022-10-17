@@ -19,7 +19,8 @@ def recipes(number_of_selected_recipes):  # draw breakfasts, lunches and dinners
 
     return selected_breakfasts, selected_lunches, selected_dinners
 
-def get_input(): #error handling when other value than int provided
+
+def get_input():  # error handling when other value than int provided
     try:
         required_number_of_days = int(input("For how many days do you want to plan meals?  \n"))
         return required_number_of_days
@@ -37,9 +38,9 @@ def meal_plan():  # print final plan of three meals for every day in required pe
 
     selected_breakfasts, selected_lunches, selected_dinners = recipes(required_number_of_days)
     for i in selected_days:
-        print('-----------------')
+        print(20 * "-")
         print(i.strftime("%A"))
-        print('-----------------')
+        print(20 * "-")
         print('Breakfast: ' + str(selected_breakfasts.pop()))
         print('Lunch: ' + str(selected_lunches.pop()))
         print('Dinner: ' + str(selected_dinners.pop()))
