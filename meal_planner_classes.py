@@ -7,11 +7,11 @@ import pandas as pd
 # Generate meal plan for one single day
 class SingleDayPlan:
 
-    def __init__(self):
+    def __init__(self, date):
         self.breakfast = None
         self.lunch = None
         self.dinner = None
-        self.date = None
+        self.date = date
 
     def draw_meal_type(self, meal_type):
         meal = df_recipes.loc[df_recipes['Meal_type'] == meal_type].sample()
@@ -19,12 +19,11 @@ class SingleDayPlan:
         return meal.index[0]
 
     def __str__(self):
-        rep = f"\n===================\n{self.date}\n===================\n" \
+        rep = f"\n===================\n{(self.date).strftime('%A')}\n===================\n" \
               f"Breakfast: {self.breakfast}\nLunch: {self.lunch}\nDinner: {self.dinner}\n==================="
         return rep
 
-    def draw_day_plan(self, date):
-        self.date = date
+    def draw_day_plan(self):
         self.breakfast = self.draw_meal_type('B')
         self.dinner = self.draw_meal_type('L')
         self.lunch = self.draw_meal_type('D')
@@ -41,18 +40,12 @@ class WeeklyPlan:
     def meal_plan(self):
         list_of_day_plans = []
         for day_num in range(1, self.num_of_days + 1):
-            day_plan = SingleDayPlan()
-            day_plan.draw_day_plan((datetime.date.today() + datetime.timedelta(days=day_num)).strftime("%A"))
+            day_plan = SingleDayPlan(datetime.date.today() + datetime.timedelta(days=day_num))
+            day_plan.draw_day_plan()
             list_of_day_plans.append(day_plan)
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
 
-#     def list_of_days(self):
-#         today = datetime.date.today()
-#         selected_days = [(today + datetime.timedelta(days=specific_day)) for specific_day in
-#                          range(1, self.num_of_days + 1)]
-#         self.selected_days = selected_days
-#         return selected_days
 
     def generate_plan(self):
         self.meal_plan()
