@@ -19,7 +19,7 @@ class SingleDayPlan:
         return meal.index[0]
 
     def __str__(self):
-        rep = f"\n===================\n{(self.date).strftime('%A')}\n===================\n" \
+        rep = f"\n===================\n{self.date.strftime('%A')}\n===================\n" \
               f"Breakfast: {self.breakfast}\nLunch: {self.lunch}\nDinner: {self.dinner}\n==================="
         return rep
 
@@ -45,7 +45,6 @@ class WeeklyPlan:
             list_of_day_plans.append(day_plan)
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
-
 
     def generate_plan(self):
         self.meal_plan()
