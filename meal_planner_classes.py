@@ -19,9 +19,8 @@ class SingleDayPlan:
         return meal.index[0]
 
     def __str__(self):
-        rep = f"\n===================\n{self.date.strftime('%A')}\n===================\n" \
+        return f"\n===================\n{self.date.strftime('%A')}\n===================\n" \
               f"Breakfast: {self.breakfast}\nLunch: {self.lunch}\nDinner: {self.dinner}\n==================="
-        return rep
 
     def draw_day_plan(self):
         self.breakfast = self.draw_meal_type('B')
@@ -35,9 +34,8 @@ class WeeklyPlan:
     def __init__(self, num_of_days):
         self.num_of_days = num_of_days
         self.list_of_day_plans = None
-        self.selected_days = None
 
-    def meal_plan(self):
+    def draw_meal_plan(self):
         list_of_day_plans = []
         for day_num in range(1, self.num_of_days + 1):
             day_plan = SingleDayPlan(datetime.date.today() + datetime.timedelta(days=day_num))
@@ -46,10 +44,8 @@ class WeeklyPlan:
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
 
-    def generate_plan(self):
-        self.meal_plan()
-        for plan in self.list_of_day_plans:
-            print(plan)
+    def __str__(self):
+        return '\n'.join([str(plan) for plan in self.list_of_day_plans])
 
 
 # Error handling when other value than int provided for num_of_days
@@ -66,4 +62,5 @@ if __name__ == "__main__":
     df_recipes = pd.read_csv("recipes_base.csv", index_col=0, sep=";")
     num_of_days = get_input()
     w = WeeklyPlan(num_of_days)
-    w.generate_plan()
+    w.draw_meal_plan()
+    print(w)
