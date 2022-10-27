@@ -1,22 +1,22 @@
-Name;Type;Category;Ingredients;Preperation time (min)
-eggs;B;v;eggs;5
-omlet;B;nv;Eggs, tomatoes, onion, olive oil;10
-Tortilla;B;nv;Tortilla, salad, tomatoes, eggs, mayonnaise;15
-donuts;B;v;donuts;5
-sandwiches;B;nv;Bread, ham, salad, cucumber, brutter, cheese;10
-waffles;B;v;Eggs, salt, baking powder, butter, flour;20
-Pancakes;B;v;Eggs, salt, baking powder, butter, flour;20
-Paella;L;v;Rice, shrimps, saffron, chicken, vegetables;60
-Steak with potatoes;L;nv;Potatoes, steak, salad with vegetables;40
-Dumplings;L;v;Flour, eggs, salt, fruits or white cheese;40
-Creamy chicken;L;nv;Chicken, spices, oil, cream;30
-Roasted steak with tomatos;L;nv;Steak, tomatos, oil, spaces;35
-Garlic chicken;L;nv;Garlic, chicken, spaces, potatoes, salad;40
-Spaghetti carbonara;L;v;Pasta, cream, eggs, bacon, parmesan;15
-Ham and cheese sliders;D;nv;Ham, cheese, flour, butter, backing soda;20
-tosts;D;nv;Bread, ham, cheese;10
-Vegetable tarta;D;v;Puff pastry, vegetables;20
-Salmon with vegetables;D;v;Salmon, carrot, potatoes, tomatoes, pasta;15
-Cesar salad;D;nv;Chopped lettuce, garlic, eggs, olive oil, lemon, parmesan;20
-Sausages;D;nv;Sausages, ketchup;10
-Pasta with garlic and tomatoes;D;v;Pasta, garlic, tomatoes;10
+Name;Type;Category;Ingredients
+eggs;B;v;eggs
+omlet;B;nv;Eggs, tomatoes, onion, olive oil
+Tortilla;B;nv;Tortilla, salad, tomatoes, eggs, mayonnaise
+donuts;B;v;donuts
+sandwiches;B;nv;Bread, ham, salad, cucumber, brutter, cheese
+waffles;B;v;Eggs, salt, baking powder, butter, flour
+Pancakes;B;v;Eggs, salt, baking powder, butter, flour
+Paella;L;v;Rice, shrimps, saffron, chicken, vegetables
+Steak with potatoes;L;nv;Potatoes, steak, salad with vegetables
+Dumplings;L;v;Flour, eggs, salt, fruits or white cheese
+Creamy chicken;L;nv;Chicken, spices, oil, cream
+Roasted steak with tomatos;L;nv;Steak, tomatos, oil, spaces
+Garlic chicken;L;nv;Garlic, chicken, spaces, potatoes, salad
+Spaghetti carbonara;L;v;Pasta, cream, eggs, bacon, parmesan
+Ham and cheese sliders;D;nv;Ham, cheese, flour, butter, backing soda
+tosts;D;nv;Bread, ham, cheese
+Vegetable tarta;D;v;Puff pastry, vegetables
+Salmon with vegetables;D;v;Salmon, carrot, potatoes, tomatoes, pasta
+Cesar salad;D;nv;Chopped lettuce, garlic, eggs, olive oil, lemon, parmesan
+Sausages;D;nv;Sausages, ketchup
+Pasta with garlic and tomatoes;D;v;Pasta, garlic, tomatoes

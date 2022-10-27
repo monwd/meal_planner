@@ -4,11 +4,10 @@ import datetime
 import pandas as pd
 
 
-# # Generate meal plan for one single day
 class Meal:
     def __init__(self, name, meal_type, category, ingredients):
         # name of meal
-        self.name = str(name)
+        self.name = name
 
         # meal type = Breakfast (B), Lunch (L), Dinner (D)
         self.meal_type = meal_type
@@ -20,14 +19,16 @@ class Meal:
         self.ingredients = ingredients
 
 
+
 class Cookbook:
     def __init__(self, df_recipes):
         self.df_recipes = df_recipes
 
     def draw_meal_type(self, meal_type):
-        meal = self.df_recipes.apply(lambda row: row[df_recipes['Type'].isin([meal_type])])
+        meal = self.df_recipes.loc[df_recipes['Type'] == meal_type].sample()
         df_recipes.drop(meal.index[0], inplace=True)
-        return meal.index[0]
+        meal1 = Meal(meal.index[0], meal.iloc[0, 0], meal.iloc[0, 1], meal.iloc[0, 2])
+        return meal1.name
 
 
 class SingleDayPlan:
