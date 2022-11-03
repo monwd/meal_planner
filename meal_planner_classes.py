@@ -1,7 +1,9 @@
 """ This is a simple meal planner that allows user to generate plan for required period basing on favourites recipes"""
 
+
 import datetime
 import pandas as pd
+from IPython.display import display, HTML
 
 
 class Meal:
@@ -45,6 +47,7 @@ class SingleDayPlan:
                f"Lunch: {self.lunch}\n" \
                f"Dinner: {self.dinner}\n" \
                f"==================="
+
 
     def draw_day_plan(self):
         c = Cookbook(df_recipes)
