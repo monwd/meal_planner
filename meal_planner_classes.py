@@ -19,7 +19,6 @@ class Meal:
         self.ingredients = ingredients
 
 
-
 class Cookbook:
     def __init__(self, df_recipes):
         self.df_recipes = df_recipes
@@ -83,15 +82,6 @@ def get_input():
 
     except ValueError:
         raise ValueError("Provide integer value")
-
-
-def get_category():
-    try:
-        category = str(input("Would you prefer vegetarian (v), non vegetarian (nv) or all (a) group of foods? \n "))
-        return category
-
-    except Exception:
-        raise Exception("Provide correct category name")
 
 
 if __name__ == "__main__":
