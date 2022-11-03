@@ -26,7 +26,7 @@ class Cookbook:
     def draw_meal_type(self, meal_type):
         meal = self.df_recipes.loc[df_recipes['Type'] == meal_type].sample()
         df_recipes.drop(meal.index[0], inplace=True)
-        meal1 = Meal(meal.index[0], meal.iloc[0, 0], meal.iloc[0, 1], meal.iloc[0, 2])
+        meal1 = Meal(meal.index[0], meal.Type[0], meal.Category[0], meal.Ingredients[0])
         return meal1.name
 
 
