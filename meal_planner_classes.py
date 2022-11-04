@@ -4,29 +4,53 @@ import datetime
 import pandas as pd
 
 
-# Generate meal plan for one single day
-class SingleDayPlan:
+class Meal:
+    def __init__(self, name, meal_type, category, ingredients):
+        # name of meal
+        self.name = name
 
+        # meal type = Breakfast (B), Lunch (L), Dinner (D)
+        self.meal_type = meal_type
+
+        # category = veg, non veg
+        self.category = category
+
+        # list of meal ingredients
+        self.ingredients = ingredients
+
+
+class Cookbook:
+    def __init__(self, df_recipes):
+        self.df_recipes = df_recipes
+
+    def draw_meal_type(self, meal_type):
+        meal = self.df_recipes.loc[df_recipes['Type'] == meal_type].sample()
+        df_recipes.drop(meal.index[0], inplace=True)
+        meal1 = Meal(meal.index[0], meal.Type[0], meal.Category[0], meal.Ingredients[0])
+        return meal1.name
+
+
+class SingleDayPlan:
     def __init__(self, date):
+        self.date = date
         self.breakfast = None
         self.lunch = None
         self.dinner = None
-        self.date = date
-
-    def draw_meal_type(self, meal_type):
-        meal = df_recipes.loc[df_recipes['Meal_type'] == meal_type].sample()
-        df_recipes.drop(meal.index[0], inplace=True)
-        return meal.index[0]
 
     def __str__(self):
-        rep = f"\n===================\n{self.date.strftime('%A')}\n===================\n" \
-              f"Breakfast: {self.breakfast}\nLunch: {self.lunch}\nDinner: {self.dinner}\n==================="
-        return rep
+        return f"\n===================\n" \
+               f"{self.date.strftime('%A')}" \
+               f"\n===================\n" \
+               f"Breakfast: {self.breakfast}\n" \
+               f"Lunch: {self.lunch}\n" \
+               f"Dinner: {self.dinner}\n" \
+               f"==================="
 
     def draw_day_plan(self):
-        self.breakfast = self.draw_meal_type('B')
-        self.dinner = self.draw_meal_type('L')
-        self.lunch = self.draw_meal_type('D')
+        c = Cookbook(df_recipes)
+        self.breakfast = c.draw_meal_type('B')
+        self.lunch = c.draw_meal_type('L')
+        self.dinner = c.draw_meal_type('D')
 
 
 # Generate final meal plans for required number of days
@@ -35,21 +59,19 @@ class WeeklyPlan:
     def __init__(self, num_of_days):
         self.num_of_days = num_of_days
         self.list_of_day_plans = None
-        self.selected_days = None
 
-    def meal_plan(self):
+    def draw_meal_plan(self):
         list_of_day_plans = []
         for day_num in range(1, self.num_of_days + 1):
-            day_plan = SingleDayPlan(datetime.date.today() + datetime.timedelta(days=day_num))
+            d = datetime.date.today() + datetime.timedelta(days=day_num)
+            day_plan = SingleDayPlan(d)
             day_plan.draw_day_plan()
             list_of_day_plans.append(day_plan)
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
 
-    def generate_plan(self):
-        self.meal_plan()
-        for plan in self.list_of_day_plans:
-            print(plan)
+    def __str__(self):
+        return '\n'.join([str(plan) for plan in self.list_of_day_plans])
 
 
 # Error handling when other value than int provided for num_of_days
@@ -66,4 +88,5 @@ if __name__ == "__main__":
     df_recipes = pd.read_csv("recipes_base.csv", index_col=0, sep=";")
     num_of_days = get_input()
     w = WeeklyPlan(num_of_days)
-    w.generate_plan()
+    w.draw_meal_plan()
+    print(w)
