@@ -90,3 +90,5 @@ if __name__ == "__main__":
     w = WeeklyPlan(num_of_days)
     w.draw_meal_plan()
     print(w)
+
+
