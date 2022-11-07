@@ -27,7 +27,7 @@ class Cookbook:
     def draw_meal_type(self, meal_type):
         meal = self.df_recipes.loc[df_recipes['Type'] == meal_type].sample()
         df_recipes.drop(meal.index[0], inplace=True)
-        meal1 = Meal(meal.index[0], meal.iloc[0, 0], meal.iloc[0, 1], meal.iloc[0, 2])
+        meal1 = Meal(meal.index[0], meal.Type[0], meal.Category[0], meal.Ingredients[0])
         return meal1.name
 
 
@@ -86,7 +86,6 @@ class WeeklyPlan:
     def __init__(self, num_of_days):
         self.num_of_days = num_of_days
         self.list_of_day_plans = None
-        self.table_html = None
 
     def draw_meal_plan(self):
         list_of_day_plans = []
@@ -98,51 +97,42 @@ class WeeklyPlan:
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
 
-    def table(self):
+    def create_html_table(self):
         w1 = WeeklyPlan(num_of_days)
         plans = self.list_of_day_plans
         days_str = f"{'</th><th>'.join(list(map(lambda plan: plan.html_date(), plans)))}"
-        plans_b = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.breakfast), plans)))}"
-        plans_l = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.lunch), plans)))}"
-        plans_d = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.dinner), plans)))}"
+        html_row_breakfasts = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.breakfast), plans)))}"
+        html_row_lunch = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.lunch), plans)))}"
+        html_row_dinner = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.dinner), plans)))}"
 
         table_html = f"""
         
-        <table >
+        <table>
         <tbody>
-        <th>
-        </th>
-        <th> {days_str}</th>
+        <th></th>
+        <th>{days_str}</th>
         <tr>
-        <td style="width: 10%; height: 18px; text-align: left;">
-<strong>BREAKFAST</strong></span>
-</td>
-        <td > {plans_b}</td>
+        <td style="width: 10%; height: 18px; text-align: left;"><strong>BREAKFAST</strong></span></td>
+        <td>{html_row_breakfasts}</td>
         <tr>
-        <td style="width: 10%; height: 18px; text-align: left;">
-<strong>LUNCH</strong></span>
-</td>
-        <td > {plans_l}</td>
+        <td style="width: 10%; height: 18px; text-align: left;"><strong>LUNCH</strong></span></td>
+        <td>{html_row_lunch}</td>
         </tr>
         <tr>
-       <td style="width: 10; height: 18px; text-align: left;">
-<strong>DINNER</strong></span>
-</td>
-        <td > {plans_d}</td>
+        <td style="width: 10; height: 18px; text-align: left;"><strong>DINNER</strong></span></td>
+        <td>{html_row_dinner}</td>
         </tr>
         </tbody>
         </table>
         
          """
-        self.table_html = table_html
-
         return table_html
 
-    def table_display(self):
-        display(HTML(self.table_html))
+    def table_display(self, html_str):
+        display(HTML(html_str))
 
     def __str__(self):
-        return '\n'.join([str(plans) for plans in self.list_of_day_plans])
+        return '\n'.join([str(plan) for plan in self.list_of_day_plans])
 
 
 # Error handling when other value than int provided for num_of_days
@@ -160,5 +150,5 @@ if __name__ == "__main__":
     num_of_days = get_input()
     w = WeeklyPlan(num_of_days)
     w.draw_meal_plan()
-    w.table()
-    print(w.table_display())
+    html_str = w.create_html_table()
+    w.table_display(html_str)
