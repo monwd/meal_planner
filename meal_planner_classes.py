@@ -1,8 +1,8 @@
 """ This is a simple meal planner that allows user to generate plan for required period basing on favourites recipes"""
 
 import datetime
-import pandas as pd
 from IPython.display import display, HTML
+import pandas as pd
 
 
 class Meal:
@@ -22,11 +22,11 @@ class Meal:
 
 class Cookbook:
     def __init__(self, df_recipes):
-        self.df_recipes = df_recipes
+        self.df_recipes = df_recipes.copy()
 
     def draw_meal_type(self, meal_type):
-        meal = self.df_recipes.loc[df_recipes['Type'] == meal_type].sample()
-        df_recipes.drop(meal.index[0], inplace=True)
+        meal = self.df_recipes.loc[self.df_recipes['Type'] == meal_type].sample()
+        self.df_recipes.drop(meal.index[0], inplace=True)
         meal1 = Meal(meal.index[0], meal.Type[0], meal.Category[0], meal.Ingredients[0])
         return meal1.name
 
@@ -38,11 +38,10 @@ class SingleDayPlan:
         self.lunch = None
         self.dinner = None
 
-    def draw_day_plan(self):
-        c = Cookbook(df_recipes)
-        self.breakfast = c.draw_meal_type('B')
-        self.lunch = c.draw_meal_type('L')
-        self.dinner = c.draw_meal_type('D')
+    def draw_day_plan(self, cookbook):
+        self.breakfast = cookbook.draw_meal_type('B')
+        self.lunch = cookbook.draw_meal_type('L')
+        self.dinner = cookbook.draw_meal_type('D')
 
     def __str__(self):
         return f"\n===================\n" \
@@ -72,7 +71,6 @@ class SingleDayPlan:
          <tr>
          <td style="width: 100%; text-align: left"> {meal}</td>
          </tr>
- 
          </tbody>
          </table>
          """
@@ -87,18 +85,17 @@ class WeeklyPlan:
         self.num_of_days = num_of_days
         self.list_of_day_plans = None
 
-    def draw_meal_plan(self):
+    def draw_meal_plan(self, cookbook):
         list_of_day_plans = []
         for day_num in range(1, self.num_of_days + 1):
             d = datetime.date.today() + datetime.timedelta(days=day_num)
             day_plan = SingleDayPlan(d)
-            day_plan.draw_day_plan()
+            day_plan.draw_day_plan(cookbook=cookbook)
             list_of_day_plans.append(day_plan)
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
 
     def create_html_table(self):
-        w1 = WeeklyPlan(num_of_days)
         plans = self.list_of_day_plans
         days_str = f"{'</th><th>'.join(list(map(lambda plan: plan.html_date(), plans)))}"
         html_row_breakfasts = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.breakfast), plans)))}"
@@ -106,30 +103,30 @@ class WeeklyPlan:
         html_row_dinner = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.dinner), plans)))}"
 
         table_html = f"""
-        
-        <table>
-        <tbody>
-        <th></th>
-        <th>{days_str}</th>
-        <tr>
-        <td style="width: 10%; height: 18px; text-align: left;"><strong>BREAKFAST</strong></span></td>
-        <td>{html_row_breakfasts}</td>
-        <tr>
-        <td style="width: 10%; height: 18px; text-align: left;"><strong>LUNCH</strong></span></td>
-        <td>{html_row_lunch}</td>
-        </tr>
-        <tr>
-        <td style="width: 10; height: 18px; text-align: left;"><strong>DINNER</strong></span></td>
-        <td>{html_row_dinner}</td>
-        </tr>
-        </tbody>
-        </table>
-        
-         """
+
+          <table>
+          <tbody>
+          <th></th>
+          <th>{days_str}</th>
+          <tr>
+          <td style="width: 10%; height: 18px; text-align: left;"><strong>BREAKFAST</strong></span></td>
+          <td>{html_row_breakfasts}</td>
+          <tr>
+          <td style="width: 10%; height: 18px; text-align: left;"><strong>LUNCH</strong></span></td>
+          <td>{html_row_lunch}</td>
+          </tr>
+          <tr>
+          <td style="width: 10; height: 18px; text-align: left;"><strong>DINNER</strong></span></td>
+          <td>{html_row_dinner}</td>
+          </tr>
+          </tbody>
+          </table>
+
+           """
         return table_html
 
     def display_html(self, html_str):
-        display(HTML(html_str))
+        display (HTML(html_str))
 
     def __str__(self):
         return '\n'.join([str(plan) for plan in self.list_of_day_plans])
@@ -138,17 +135,27 @@ class WeeklyPlan:
 # Error handling when other value than int provided for num_of_days
 def get_input():
     try:
-        num_of_days = int(input("For how many days do you want to plan meals?  \n"))
+        num_of_days = int(input("For how many days do you want to plan meals?   \n"))
         return num_of_days
 
     except ValueError:
         raise ValueError("Provide integer value")
 
 
-if __name__ == "__main__":
+def main():
     df_recipes = pd.read_csv("recipes_base.csv", index_col=0, sep=";")
+    cookbook = Cookbook(df_recipes=df_recipes)
     num_of_days = get_input()
     w = WeeklyPlan(num_of_days)
-    w.draw_meal_plan()
+    w.draw_meal_plan(cookbook)
+    # html_str = HtmlGenerator(w.list_of_day_plans).create_html_table()
+    # display(HTML(html_str))
+    # w.display_html(html_str)
+    # print(html_str)
     html_str = w.create_html_table()
-    w.display_html(html_str)
+    # w.display_html(html_str)
+    return html_str
+
+
+if __name__ == "__main__":
+    main()
