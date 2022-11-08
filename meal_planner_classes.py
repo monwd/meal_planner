@@ -128,7 +128,7 @@ class WeeklyPlan:
          """
         return table_html
 
-    def table_display(self, html_str):
+    def display_html(self, html_str):
         display(HTML(html_str))
 
     def __str__(self):
