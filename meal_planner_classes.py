@@ -151,4 +151,4 @@ if __name__ == "__main__":
     w = WeeklyPlan(num_of_days)
     w.draw_meal_plan()
     html_str = w.create_html_table()
-    w.table_display(html_str)
+    w.display_html(html_str)
