@@ -1,17 +1,19 @@
 # Meal planner
 
-#### General info
+### General info
 
 This project is a simple meal planner written in Python 3. It allows you to generate plan for required period of time basing on your standard favourites recipes. It will definetely save your time because you will not waste time thinking about what to cook. 
+***
 
+### Technologies
 
-#### Technologies
 Project is created with:
 * Python  3
 * HTML 
+***
 
+### Setup
 
-#### Setup
 To run this application you need to: 
 1. Run the code in your local environment.
 2. Provide to your own name of recipes under recipes_base.csv file.
