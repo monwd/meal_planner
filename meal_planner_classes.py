@@ -1,7 +1,7 @@
 """ This is a simple meal planner that allows user to generate plan for required period basing on favourites recipes"""
 
 import datetime
-from IPython.display import display, HTML
+
 import pandas as pd
 
 
@@ -20,6 +20,13 @@ class Meal:
         self.ingredients = ingredients
 
 
+class Meals:
+    def __init__(self, type, meals):
+        self.type = type
+        self.meals = meals
+
+
+# Allows to select from the csv meal of specific type without repetition
 class Cookbook:
     def __init__(self, df_recipes):
         self.df_recipes = df_recipes.copy()
@@ -31,6 +38,7 @@ class Cookbook:
         return meal1.name
 
 
+# Generates meal plan for one single day
 class SingleDayPlan:
     def __init__(self, date):
         self.date = date
@@ -52,31 +60,6 @@ class SingleDayPlan:
                f"Dinner: {self.dinner}\n" \
                f"==================="
 
-    def html_date(self):
-        html_date_template = f"""
-         <table style="border-collapse: collapse; width: 100%;" border="1">
-         <tbody>
-         <tr valign="top">
-         <td style="width: 100%;text-align: left">{self.date.strftime('%A')}</td>
-         </tr>
-         </tbody>
-         </table>
-         """
-        return html_date_template
-
-    def html_meal(self, meal):
-        html_meal_template = f"""
-         <table style="border-collapse: collapse; width: 100%;" border="1">
-         <tbody>
-         <tr>
-         <td style="width: 100%; text-align: left"> {meal}</td>
-         </tr>
-         </tbody>
-         </table>
-         """
-
-        return html_meal_template
-
 
 # Generate final meal plans for required number of days
 class WeeklyPlan:
@@ -95,41 +78,75 @@ class WeeklyPlan:
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
 
-    def create_html_table(self):
-        plans = self.list_of_day_plans
-        days_str = f"{'</th><th>'.join(list(map(lambda plan: plan.html_date(), plans)))}"
-        html_row_breakfasts = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.breakfast), plans)))}"
-        html_row_lunch = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.lunch), plans)))}"
-        html_row_dinner = f"{'</td><td>'.join(list(map(lambda plan: plan.html_meal(meal=plan.dinner), plans)))}"
-
-        table_html = f"""
-
-          <table>
-          <tbody>
-          <th></th>
-          <th>{days_str}</th>
-          <tr>
-          <td style="width: 10%; height: 18px; text-align: left;"><strong>BREAKFAST</strong></span></td>
-          <td>{html_row_breakfasts}</td>
-          <tr>
-          <td style="width: 10%; height: 18px; text-align: left;"><strong>LUNCH</strong></span></td>
-          <td>{html_row_lunch}</td>
-          </tr>
-          <tr>
-          <td style="width: 10; height: 18px; text-align: left;"><strong>DINNER</strong></span></td>
-          <td>{html_row_dinner}</td>
-          </tr>
-          </tbody>
-          </table>
-
-           """
-        return table_html
-
-    def display_html(self, html_str):
-        display (HTML(html_str))
-
     def __str__(self):
         return '\n'.join([str(plan) for plan in self.list_of_day_plans])
+
+
+# Generates final version of table in html
+class HtmlGenerator:
+    def __init__(self, list_of_day_plans):
+        self.list_of_day_plans = list_of_day_plans
+
+    # Generate table
+    def create_html_table(self):
+        column_names = list(map(lambda plan: plan.date.strftime('%A'), self.list_of_day_plans))
+        breakfast = Meals("BREAKFAST", list(map(lambda plan: plan.breakfast, self.list_of_day_plans)))
+        lunch = Meals("LUNCH", list(map(lambda plan: plan.lunch, self.list_of_day_plans)))
+        dinner = Meals("DINNER", list(map(lambda plan: plan.dinner, self.list_of_day_plans)))
+        rows = [breakfast, lunch, dinner]
+        return self.generate_table(column_names, rows)
+
+    def generate_table_header(self, column_names):
+        header_columns = list(map(lambda name: f"<th>{name}</th>", column_names))
+        return f"<tr><th></th>{''.join(header_columns)}</tr>"
+
+    def generate_td(self, values):
+        return list(map(lambda value: f"<td >{value}</td>", values))
+
+    def generate_content(self, rows):
+        html_rows = list(
+            map(lambda row: f"<tr><td class=rowTitle>{row.type} </td>{''.join(self.generate_td(row.meals))}</tr>",
+                rows))
+        return ''.join(html_rows)
+
+    def generate_table(self, column_names, rows):
+        style = '''  <style>
+      table {
+        border-collapse: collapse;
+      }
+      th {
+        padding: 10px;
+        background-color: #00aa8d;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      td {
+        padding: 10px;
+      }
+      tr:hover {
+        background-color: magenta;
+      }
+       .rowTitle {
+        background-color: #00aa8d;
+        font-size: 14px;
+        font-weight: 700;
+        }
+    </style>'''
+        table_html = f"""
+          <html>
+          <head> 
+          {style}         
+          </head>
+          <body>
+          <table style="border-collapse: collapse" border="1">
+          <caption style="text-align: center; color:red; font-size:20px">MEAL PLANNER</caption>
+          {self.generate_table_header(column_names)}
+          {self.generate_content(rows)}
+          </table>
+          </body>
+          </html>
+           """
+        return table_html
 
 
 # Error handling when other value than int provided for num_of_days
@@ -148,12 +165,7 @@ def main():
     num_of_days = get_input()
     w = WeeklyPlan(num_of_days)
     w.draw_meal_plan(cookbook)
-    # html_str = HtmlGenerator(w.list_of_day_plans).create_html_table()
-    # display(HTML(html_str))
-    # w.display_html(html_str)
-    # print(html_str)
-    html_str = w.create_html_table()
-    # w.display_html(html_str)
+    html_str = HtmlGenerator(w.list_of_day_plans).create_html_table()
     return html_str
 
 

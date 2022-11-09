@@ -1,20 +1,18 @@
-from meal_planner_classes import main
 import smtplib
 import ssl
 from email.mime.text import MIMEText
 import pandas as pd
-
+from meal_planner_classes import main
 
 
 def send_email(html_str):
-    with open('email.html', 'w') as f:
-        print(html_str, file=f)
+    # with open('email.html', 'w') as f:
+    #     print(html_str, file=f)
 
     email_from = 'python.test.gante@gmail.com'
     password = 'iqmcujhevpphhibq'
     email_to = 'monwlodarczyk@gmail.com'
 
-    email_html = open('email.html')
     email_body = html_str
 
     # Generate today's date to be included in the email Subject
