@@ -15,8 +15,8 @@ Project is created with:
 ### Setup
 
 To run this application you need to: 
-1. Run the code in your local environment.
-2. Provide to your own name of recipes under recipes_base.csv file.
-3. The following steps must be performed to get generated planner to specific email address:
+1. Provide to your own recipes under recipes_base.csv file.
+2. The following steps must be performed to send generated planner to specific email address:
     * Open the `sending_emails.py` file
     * Under `send_email` funtion find `email_to =`variable and provide there  required email address (in quotes).
+4. Run the `sending_emails.py` script.
