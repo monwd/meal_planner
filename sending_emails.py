@@ -1,14 +1,13 @@
 import smtplib
 import ssl
 from email.mime.text import MIMEText
+
 import pandas as pd
-from meal_planner_classes import main
+
+import html_generator
 
 
 def send_email(html_str):
-    # with open('email.html', 'w') as f:
-    #     print(html_str, file=f)
-
     email_from = 'python.test.gante@gmail.com'
     password = 'iqmcujhevpphhibq'
     email_to = 'monwlodarczyk@gmail.com'
@@ -24,15 +23,22 @@ def send_email(html_str):
     email_message['To'] = 'monwlodarczyk@gmail.com'
     email_message['Subject'] = f'Meal planner for you! - {date_str}'
 
+    # Connect to the Gmail SMTP server and Send Email
+    # Create a secure default settings context
     context = ssl.create_default_context()
 
+    # Connect to Gmail's SMTP Outgoing Mail server with such context
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(email_from, password)  # Provide Gmail's login information
         server.sendmail(email_from, email_to, email_message.as_string())
 
-    print(f"Meal planner has been successfully sent to:{email_to}!")
+    print(f"Meal planner has been successfully sent to: {email_to}!")
+
+
+def main_sending_email():
+    html_str = html_generator.main_generator()
+    send_email(html_str)
 
 
 if __name__ == "__main__":
-    html_str = main()
-    send_email(html_str)
+    main_sending_email()
