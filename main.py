@@ -10,4 +10,4 @@ def main(sending_email_with_planner: bool):
 
 
 if __name__ == "__main__":
-    main(sending_email_with_planner=False)
+    main(sending_email_with_planner=True)
