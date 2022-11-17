@@ -74,11 +74,11 @@ class HtmlGenerator:
         return table_html
 
 
-def main_generator():
-    meal_plan = meal_planner_classes.main()
+def creation_of_html_table():
+    meal_plan = meal_planner_classes.creation_of_weekly_plan()
     html_str = HtmlGenerator(meal_plan).create_html_table()
     return html_str
 
 
 if __name__ == "__main__":
-    main_generator()
+    creation_of_html_table()

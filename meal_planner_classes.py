@@ -74,7 +74,7 @@ def get_input():
         raise ValueError("Provide integer value")
 
 
-def main():
+def creation_of_weekly_plan():
     df_recipes = pd.read_csv("recipes_base.csv", index_col=0, sep=";")
     cookbook = Cookbook(df_recipes=df_recipes)
     num_of_days = get_input()
@@ -84,4 +84,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    creation_of_weekly_plan()

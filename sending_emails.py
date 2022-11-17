@@ -35,10 +35,10 @@ def send_email(html_str):
     print(f"Meal planner has been successfully sent to: {email_to}!")
 
 
-def main_sending_email():
-    html_str = html_generator.main_generator()
+def sending_email_with_planner():
+    html_str = html_generator.creation_of_html_table()
     send_email(html_str)
 
 
 if __name__ == "__main__":
-    main_sending_email()
+    sending_email_with_planner()
