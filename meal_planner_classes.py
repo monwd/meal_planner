@@ -56,8 +56,8 @@ class WeeklyPlan(BaseModel):
     def draw_meal_plan(self, cookbook):
         list_of_day_plans = []
         for day_num in range(1, self.num_of_days + 1):
-            d = datetime.datetime.today() + datetime.timedelta(days=day_num)
-            day_plan = SingleDayPlan(date=d)
+            day_of_plan = datetime.datetime.today() + datetime.timedelta(days=day_num)
+            day_plan = SingleDayPlan(date=day_of_plan)
             day_plan.draw_day_plan(cookbook=cookbook)
             list_of_day_plans.append(day_plan)
         self.list_of_day_plans = list_of_day_plans
@@ -78,9 +78,9 @@ def creation_of_weekly_plan():
     df_recipes = pd.read_csv("recipes_base.csv", index_col=0, sep=";")
     cookbook = Cookbook(df_recipes=df_recipes)
     num_of_days = get_input()
-    w = WeeklyPlan(num_of_days=num_of_days)
-    w.draw_meal_plan(cookbook)
-    return w.list_of_day_plans
+    planner = WeeklyPlan(num_of_days=num_of_days)
+    planner.draw_meal_plan(cookbook)
+    return planner.list_of_day_plans
 
 
 if __name__ == "__main__":

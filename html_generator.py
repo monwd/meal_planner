@@ -7,12 +7,12 @@ import meal_planner_classes
 
 class Meals(BaseModel):
     type: str
-    meals: List[str] = []
+    meals: List[str]
 
 
 # Generates final version of table in html
 class HtmlGenerator(BaseModel):
-    list_of_day_plans: List[meal_planner_classes.SingleDayPlan] = []
+    list_of_day_plans: List[meal_planner_classes.SingleDayPlan]
 
 # Generate table
     def create_html_table(self):
