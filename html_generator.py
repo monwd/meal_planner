@@ -1,23 +1,32 @@
+from typing import List
+
+from pydantic import BaseModel
+
 import meal_planner_classes
 
 
-class Meals:
-    def __init__(self, type, meals):
-        self.type = type
-        self.meals = meals
+class Meals(BaseModel):
+    type: str
+    meals: List[str] = []
+
+    # def __init__(self, type, meals):
+    #     self.type = type
+    #     self.meals = meals
 
 
 # Generates final version of table in html
-class HtmlGenerator:
-    def __init__(self, list_of_day_plans):
-        self.list_of_day_plans = list_of_day_plans
+class HtmlGenerator(BaseModel):
+    list_of_day_plans: List[meal_planner_classes.SingleDayPlan] = []
+
+    # def __init__(self, list_of_day_plans):
+    #     self.list_of_day_plans = list_of_day_plans
 
     # Generate table
     def create_html_table(self):
         column_names = list(map(lambda plan: plan.date.strftime('%A'), self.list_of_day_plans))
-        breakfast = Meals("BREAKFAST", list(map(lambda plan: plan.breakfast, self.list_of_day_plans)))
-        lunch = Meals("LUNCH", list(map(lambda plan: plan.lunch, self.list_of_day_plans)))
-        dinner = Meals("DINNER", list(map(lambda plan: plan.dinner, self.list_of_day_plans)))
+        breakfast = Meals(type="BREAKFAST", meals=list(map(lambda plan: plan.breakfast, self.list_of_day_plans)))
+        lunch = Meals(type="LUNCH", meals=list(map(lambda plan: plan.lunch, self.list_of_day_plans)))
+        dinner = Meals(type="DINNER", meals=list(map(lambda plan: plan.dinner, self.list_of_day_plans)))
         rows = [breakfast, lunch, dinner]
         return self.generate_table(column_names, rows)
 
@@ -76,7 +85,7 @@ class HtmlGenerator:
 
 def creation_of_html_table():
     meal_plan = meal_planner_classes.creation_of_weekly_plan()
-    html_str = HtmlGenerator(meal_plan).create_html_table()
+    html_str = HtmlGenerator(list_of_day_plans=meal_plan).create_html_table()
     return html_str
 
 
