@@ -14,20 +14,6 @@ class Meal(BaseModel):
     ingredients: str
 
 
-#     def __init__(self, name, meal_type, category, ingredients):
-#         # name of meal
-#         self.name = name
-
-#         # meal type = Breakfast (B), Lunch (L), Dinner (D)
-#         self.meal_type = meal_type
-
-#         # category = veg, non veg
-#         self.category = category
-
-#         # list of meal ingredients
-#         self.ingredients = ingredients
-
-
 # Allows to select (without repetition) from the csv file a meal of specific type
 class Cookbook(BaseModel):
     df_recipes: pd.DataFrame
@@ -35,14 +21,11 @@ class Cookbook(BaseModel):
     class Config:
         arbitrary_types_allowed = True
 
-    #         z validatorem czy bez, działa.
+    # Validator to be checked if written correctly. Code works without it.
     #     @validator('df_recipes')
     #     def copy_df_recipes(cls, df_recipes):
     #         df_recipes = df_recipes.copy()
     #         return df_recipes
-
-    #     def __init__(self, df_recipes):
-    #         self.df_recipes = df_recipes.copy()
 
     def draw_meal_type(self, meal_type):
         meal = self.df_recipes.loc[self.df_recipes['Type'] == meal_type].sample()
@@ -59,12 +42,6 @@ class SingleDayPlan(BaseModel):
     lunch: str = None
     dinner: str = None
 
-    #     def __init__(self, date):
-    #         self.date = date
-    #         self.breakfast = None
-    #         self.lunch = None
-    #         self.dinner = None
-
     def draw_day_plan(self, cookbook):
         self.breakfast = cookbook.draw_meal_type(meal_type='B')
         self.lunch = cookbook.draw_meal_type(meal_type='L')
@@ -74,11 +51,7 @@ class SingleDayPlan(BaseModel):
 # Generate final meal plans for required number of days
 class WeeklyPlan(BaseModel):
     num_of_days: int
-    list_of_day_plans: List[str] = []
-
-    #     def __init__(self, num_of_days):
-    #         self.num_of_days = num_of_days
-    #         self.list_of_day_plans = None
+    list_of_day_plans: List[SingleDayPlan] = []
 
     def draw_meal_plan(self, cookbook):
         list_of_day_plans = []

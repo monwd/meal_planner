@@ -9,19 +9,12 @@ class Meals(BaseModel):
     type: str
     meals: List[str] = []
 
-    # def __init__(self, type, meals):
-    #     self.type = type
-    #     self.meals = meals
-
 
 # Generates final version of table in html
 class HtmlGenerator(BaseModel):
     list_of_day_plans: List[meal_planner_classes.SingleDayPlan] = []
 
-    # def __init__(self, list_of_day_plans):
-    #     self.list_of_day_plans = list_of_day_plans
-
-    # Generate table
+# Generate table
     def create_html_table(self):
         column_names = list(map(lambda plan: plan.date.strftime('%A'), self.list_of_day_plans))
         breakfast = Meals(type="BREAKFAST", meals=list(map(lambda plan: plan.breakfast, self.list_of_day_plans)))
