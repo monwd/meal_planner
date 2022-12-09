@@ -18,6 +18,7 @@ class Meal(BaseModel):
 class Cookbook(BaseModel):
     df_recipes: pd.DataFrame
 
+
     class Config:
         arbitrary_types_allowed = True
 
@@ -32,7 +33,8 @@ class Cookbook(BaseModel):
         self.df_recipes.drop(meal.index[0], inplace=True)
         meal1 = Meal(name=meal.index[0], meal_type=meal.Type[0], category=meal.Category[0],
                      ingredients=meal.Ingredients[0])
-        return meal1.name
+
+        return meal1
 
 
 # Generates meal plan for one single day
@@ -41,6 +43,7 @@ class SingleDayPlan(BaseModel):
     breakfast: str = None
     lunch: str = None
     dinner: str = None
+
 
     def draw_day_plan(self, cookbook):
         self.breakfast = cookbook.draw_meal_type(meal_type='B')
@@ -53,6 +56,7 @@ class WeeklyPlan(BaseModel):
     num_of_days: int
     list_of_day_plans: List[SingleDayPlan] = []
 
+
     def draw_meal_plan(self, cookbook):
         list_of_day_plans = []
         for day_num in range(1, self.num_of_days + 1):
@@ -62,6 +66,7 @@ class WeeklyPlan(BaseModel):
             list_of_day_plans.append(day_plan)
         self.list_of_day_plans = list_of_day_plans
         return list_of_day_plans
+
 
 
 # Error handling when other value than int provided for num_of_days
@@ -83,5 +88,8 @@ def creation_of_weekly_plan():
     return planner.list_of_day_plans
 
 
+
+
 if __name__ == "__main__":
     creation_of_weekly_plan()
+

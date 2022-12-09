@@ -1,22 +1,22 @@
 Name;Type;Category;Ingredients
-Eggs;B;v;Eggs
-Omlet;B;nv;Eggs, tomatoes, onion, olive oil
-Tortilla;B;nv;Tortilla, salad, tomatoes, eggs, mayonnaise
-Donuts;B;v;Donuts
-Sandwiches;B;nv;Bread, ham, salad, cucumber, brutter, cheese
-Waffles;B;v;Eggs, salt, baking powder, butter, flour
-Pancakes;B;v;Eggs, salt, baking powder, butter, flour
-Paella;L;v;Rice, shrimps, saffron, chicken, vegetables
-Steak with potatoes;L;nv;Potatoes, steak, salad with vegetables
-Dumplings;L;v;Flour, eggs, salt, fruits or white cheese
-Creamy chicken;L;nv;Chicken, spices, oil, cream
-Roasted steak with tomatos;L;nv;Steak, tomatos, oil, spaces
-Garlic chicken;L;nv;Garlic, chicken, spaces, potatoes, salad
-Spaghetti carbonara;L;v;Pasta, cream, eggs, bacon, parmesan
-Ham and cheese sliders;D;nv;Ham, cheese, flour, butter, backing soda
-Toasts;D;nv;Bread, ham, cheese
-Vegetable tarta;D;v;Puff pastry, vegetables
-Salmon with vegetables;D;v;Salmon, carrot, potatoes, tomatoes, pasta
-Cesar salad;D;nv;Chopped lettuce, garlic, eggs, olive oil, lemon, parmesan
-Sausages;D;nv;Sausages, ketchup
-Pasta with garlic and tomatoes;D;v;Pasta, garlic, tomatoes
+Eggs;B;v;2 Eggs
+Omlet;B;nv;3 Eggs, 2 Tomatoes, 1 Onion, 20 Olive oil
+Tortilla;B;nv;1 Tortilla, 1 Salad, 2 Tomatoes, 2 Eggs,1 Mayonnaise
+Donuts;B;v;2 Donuts
+Sandwiches;B;nv;2 Bread, 20 Ham, 2 Salad, 1 Cucumber, 1 Butter, 20 Cheese
+Waffles;B;v;2 Eggs, 1 Salt, 1 Baking powder, 1 Butter, 1000 Flour
+Pancakes;B;v;2 Eggs, 1 Salt, 1 Baking powder, 1 Butter, 500 Flour
+Paella;L;v;500 Rice, 1 Shrimps, 1 Saffron, 1 Chicken, 2 Tomatoes, 3 Peppers
+Steak with potatoes;L;nv;1000 Potatoes, 1 Steak, 1 Salad, 2 Tomatoes
+Dumplings;L;v;1000 Flour, 2 Eggs, Salt, 2 Fruits
+Creamy chicken;L;nv;1 Chicken, 1 Spices, 10 Olive oil
+Roasted steak with tomatos;L;nv;1 Steak, 2 Tomatoes, 20 Olive oil, 1 Spices
+Garlic chicken;L;nv;2 Garlic, 1 Chicken, 1 Spices, 1000 Potatoes, 1 Salad
+Spaghetti carbonara;L;v;1 Pasta, 2 Eggs, 20 Bacon,1 Parmesan
+Ham and cheese sliders;D;nv;20 Ham, 20 Cheese, 500 Flour, 1 Butter, 1 Backing soda
+Toasts;D;nv;1 Bread, 20 Ham, 20 Cheese
+Vegetable tarta;D;v;1 Puff pastry, 2 Tomatoes, 2 Peppers
+Salmon with vegetables;D;v;1 Salmon, 1 Carrot, 1000 Potatoes, 2 Tomatoes, 1 Pasta
+Cesar salad;D;nv;1 Chopped lettuce, 1 Garlic, 2 Eggs, 20 Olive oil, 1 Lemon, 1 Parmesan
+Sausages;D;nv;2 Sausages, 1 Ketchup
+Pasta with garlic and tomatoes;D;v;1 Pasta, 1 Garlic, 1 Tomatoes

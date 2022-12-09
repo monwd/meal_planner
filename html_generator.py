@@ -17,9 +17,9 @@ class HtmlGenerator(BaseModel):
 # Generate table
     def create_html_table(self):
         column_names = list(map(lambda plan: plan.date.strftime('%A'), self.list_of_day_plans))
-        breakfast = Meals(type="BREAKFAST", meals=list(map(lambda plan: plan.breakfast, self.list_of_day_plans)))
-        lunch = Meals(type="LUNCH", meals=list(map(lambda plan: plan.lunch, self.list_of_day_plans)))
-        dinner = Meals(type="DINNER", meals=list(map(lambda plan: plan.dinner, self.list_of_day_plans)))
+        breakfast = Meals(type="BREAKFAST", meals=list(map(lambda plan: plan.breakfast.name, self.list_of_day_plans)))
+        lunch = Meals(type="LUNCH", meals=list(map(lambda plan: plan.lunch.name, self.list_of_day_plans)))
+        dinner = Meals(type="DINNER", meals=list(map(lambda plan: plan.dinner.name, self.list_of_day_plans)))
         rows = [breakfast, lunch, dinner]
         return self.generate_table(column_names, rows)
 
